@@ -1,0 +1,24 @@
+1.Select only AZN and USD and if the customer's name is individual, the first last and middle name are combined, and if it is corporate, the company_name column
+using the full name name.
+
+SELECT  NVL2(first_name, first_name||' '||middle_name||' '||last_name,COMPANY_NAME) as Full_Name, currency, count(*) as Count FROM customer_accounts ca
+Inner Join customer c on c.customer_id=ca.customer_no
+where currency='AZN' or currency='USD'
+group by NVL2(first_name, first_name||' '||middle_name||' '||last_name,COMPANY_NAME), currency
+order by count
+
+
+2.  Count credits and if the customer's name is individual, the first last and middle name are combined, and if it is corporate, the company_name column
+using the full name name.
+
+SELECT  NVL2(first_name, first_name||' '||middle_name||' '||last_name,COMPANY_NAME) as Full_Name, count(*) FROM credits cr
+Inner Join Customer c on cr.customer_id=c.customer_id
+group by NVL2(first_name, first_name||' '||middle_name||' '||last_name,COMPANY_NAME)
+
+
+3.Sum credit amount and if the customer's name is individual, the first last and middle name are combined, and if it is corporate, the company_name column
+using the full name name.
+
+SELECT  NVL2(first_name, first_name||' '||middle_name||' '||last_name,COMPANY_NAME) as Full_Name, sum(loan_balance) SUM_Loans FROM credits cr
+Inner Join Customer c on cr.customer_id=c.customer_id
+group by NVL2(first_name, first_name||' '||middle_name||' '||last_name,COMPANY_NAME)
