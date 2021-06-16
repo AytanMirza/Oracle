@@ -1,0 +1,30 @@
+#Create table
+Create table customer_data_xml(
+customer_id number,
+text_data varchar2(100));
+
+#Insert Values
+Insert into customer_data_xml(customer_id, text_data)
+values('1', '-+|Liam Olivia+NewYork 9991210');
+
+Insert into customer_data_xml(customer_id, text_data)
+values('2', '|Noah Emma+Virginia 9991');
+
+Insert into customer_data_xml(customer_id, text_data)
+values('3', '6677|Oliver Ava+Washington 44');
+
+Insert into customer_data_xml(customer_id, text_data)
+values('4', '|Elijah Charlotte+Minnesota 9991');
+
+Insert into customer_data_xml(customer_id, text_data)
+values('5', '|Elijah Charlotte+Washington 9991');
+
+Insert into customer_data_xml(customer_id, text_data)
+values('6', '|Noah Emma+Minnesota 9991')
+
+# Divide the column into two parts
+Select 
+c.*, 
+substr(text_data, instr(text_data, '|')+1, instr(text_data, '+', -1)-1 - instr(text_data, '|')) as Customer_Name,
+substr(text_data, instr(text_data, '+',-1)+1, instr(text_data, ' ',-1)-1-instr(text_data, '+',-1)) as Region_Name
+from customer_data_xml c;
